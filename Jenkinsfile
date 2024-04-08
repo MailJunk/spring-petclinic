@@ -5,25 +5,23 @@ pipeline {
         JAVA_HOME = tool 'Java22'
     }
     stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
         stage('Compile Code') {
             steps {
-                sh 'mvn clean install -DskipTests'
+                // Use bat instead of sh for Windows commands
+                bat 'mvn clean install -DskipTests'
             }
         }
         stage('Run Tests') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
+        // Ensure you have Docker commands available on Windows if you're using Docker steps
         stage('Build Docker Image') {
             steps {
                 script {
-                    docker.build("my-spring-petclinic:${env.BUILD_NUMBER}")
+                    // Docker commands can remain the same; ensure Docker CLI is available on Windows
+                    bat "docker build -t my-spring-petclinic:${env.BUILD_NUMBER} ."
                 }
             }
         }
