@@ -1,21 +1,29 @@
 pipeline {
     agent any
-
+    environment {
+        MAVEN_HOME = tool 'Maven3'
+        JAVA_HOME = tool 'Java22'
+    }
     stages {
-        stage('Compile') {
+        stage('Checkout') {
             steps {
-                bat 'mvn compile' 
+                checkout scm
             }
         }
-        stage('Test') {
+        stage('Compile Code') {
             steps {
-                bat 'mvn test' 
+                sh 'mvn clean install -DskipTests'
             }
         }
-        stage('Build Image') {
+        stage('Run Tests') {
+            steps {
+                sh 'mvn test'
+            }
+        }
+        stage('Build Docker Image') {
             steps {
                 script {
-                    dockerImage = docker.build("petclinic-image") 
+                    docker.build("my-spring-petclinic:${env.BUILD_NUMBER}")
                 }
             }
         }

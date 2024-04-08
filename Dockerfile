@@ -1,16 +1,15 @@
-# Stage 1: Build Stage
-RUN curl -s https://www.google.com > /dev/null
-FROM openjdk:8-jdk-alpine AS build
-WORKDIR /app
-COPY .mvn/ .mvn
-COPY pom.xml pom.xml
-RUN mvn dependency:go-offline
-COPY src src
-RUN mvn package
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:11-jre-slim
 
-# Stage 2: Final Image
-FROM openjdk:8-jdk-alpine 
+# Set the working directory in the container
 WORKDIR /app
-COPY --from=build /app/target/spring-petclinic-*.jar . 
+
+# Copy the jar file into the container at /app
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+
+# Make port 8080 available to the world outside this container
 EXPOSE 8080
-CMD ["java","-jar","spring-petclinic-*.jar"]
+
+# Run the jar file 
+ENTRYPOINT ["java","-jar","app.jar"]
