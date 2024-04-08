@@ -3,9 +3,9 @@ FROM openjdk:8-jdk-alpine AS build
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY pom.xml pom.xml
-mvn dependency:go-offline
+RUN mvn dependency:go-offline
 COPY src src
-mvn package
+RUN mvn package
 
 # Stage 2: Final Image
 FROM openjdk:8-jdk-alpine 
