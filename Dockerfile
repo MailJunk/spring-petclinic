@@ -1,4 +1,5 @@
-# Stage 1: Build Stage 
+# Stage 1: Build Stage
+RUN curl -s https://www.google.com > /dev/null
 FROM openjdk:8-jdk-alpine AS build
 WORKDIR /app
 COPY .mvn/ .mvn
