@@ -85,6 +85,7 @@ Setting up Jenkins vs http://localhost:9090/
 Needed to change the port number to 9090 so it won't conflict with the project default port of 8080
 Specified tool settings for Maven and JDK location
 Named Maven as 'Maven3'
+set Maven to use pom.xml
 Named Java as  'Java22'
 Setting up Pipeline for Spring project
 Select "Pipeline script from SCM" in the "Pipeline" section.
@@ -111,6 +112,11 @@ git commit -m "Add Dockerfile and Jenkinsfile for pipeline"
 git push origin main
 
 Step 8:
+added jcenter repository in pom.xml
+Pushed changes to git
+
+Step 9:
 Ran pipeline in Jenkins
+
 
 
