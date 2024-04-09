@@ -118,5 +118,15 @@ Pushed changes to git
 Step 9:
 Ran pipeline in Jenkins
 
+Step 10:
+Tagged and pushed docker image to docker hub
+
+https://hub.docker.com/r/mailjunk/spring-petclinic
+
+docker run -p 8080:8080 mailjunk/spring-petclinic:latest
+
+go to the browser and type in:
+
+http://localhost:8080/
 
 
